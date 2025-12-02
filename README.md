@@ -8,6 +8,7 @@
 - 词频统计命令行工具（`cmd/wordfreq`）
 - 文本处理工具包（`pkg/textutil`）
 - 基本的单元测试示例
+- 简单的 HTTP `/ping` 接口服务（`cmd/server`）
 
 ---
 
@@ -36,12 +37,16 @@ go-intern/
       main.go
     wordfreq/       # 词频统计命令行工具
       main.go
+    server/         # 简单的 HTTP 服务（包含 /ping 接口）
+      main.go
   pkg/
     textutil/       # 文本工具函数
       reverse.go
       reverse_test.go
       wordcount.go
       wordcount_test.go
+      repeat.go
+      repeat_test.go
   README.md
   go.mod
 ```
@@ -121,6 +126,48 @@ world 1
 
 ---
 
+### 3. 简单 HTTP `/ping` 服务（cmd/server）
+
+启动一个本地 HTTP 服务，提供 `/ping` 接口，用来练习 Go 的 `net/http` 基础。
+
+#### 运行方式
+
+在项目根目录下执行：
+
+```bash
+go run ./cmd/server
+```
+
+终端会输出类似：
+
+```text
+Starting server on :8080
+```
+
+表示服务已经在本地 `8080` 端口启动。
+
+#### 测试 `/ping` 接口
+
+在浏览器访问：
+
+```text
+http://localhost:8080/ping
+```
+
+或者在 PowerShell / 终端中使用：
+
+```bash
+curl http://localhost:8080/ping
+```
+
+预期返回：
+
+```text
+pong
+```
+
+---
+
 ## 文本工具包（pkg/textutil）
 
 ### ReverseString
@@ -139,6 +186,14 @@ func WordCount(line string) map[string]int
 
 - 功能：统计一行文本中每个单词出现的次数，按空白字符拆分。
 
+### RepeatString
+
+```go
+func RepeatString(s string, n int) string
+```
+
+- 功能：将字符串 `s` 重复 `n` 次，例如 `RepeatString("go", 3)` 返回 `"gogogo"`。
+
 ---
 
 ## 运行测试
@@ -153,6 +208,7 @@ go test ./...
 
 - `reverse_test.go`
 - `wordcount_test.go`
+- `repeat_test.go`
 
 ---
 
@@ -162,10 +218,14 @@ go test ./...
 
 - 基本命令行工具的实现；
 - 使用 `testing` 包编写简单单元测试；
-- 使用 Git 和 GitHub 管理每日学习进度。
+- 使用 Git 和 GitHub 管理每日学习进度；
+- 使用 Go 的 `net/http` 标准库实现了一个简单的 HTTP `/ping` 接口。
 
-后续计划：
+后续计划 / 当前进度：
 
-- 添加 HTTP 服务（例如 `/ping` 接口）；
-- 实现一个简单的笔记/Todo 后端服务；
-- 继续补充更多测试和练习代码。
+- [x] 基本命令行工具（字符串反转、词频统计）
+- [x] 使用 `testing` 包编写简单单元测试
+- [x] 添加 `RepeatString` 工具函数及测试
+- [x] 添加 HTTP 服务基础框架，并实现 `/ping` 接口
+- [ ] 实现一个简单的笔记/Todo 后端服务
+- [ ] 继续补充更多测试和练习代码
