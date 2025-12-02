@@ -19,3 +19,12 @@ func TestRepeatString_Zero(t *testing.T) {
 		t.Fatalf("RepeatString(\"go\", 0) = %q; want %q", got, want)
 	}
 }
+
+func TestRespeatString_Chinese(t *testing.T) {
+	got := RepeatString("哈哈哈哈哈哈哈", 2)
+	want := "哈哈哈哈哈哈哈哈哈哈哈哈哈哈"
+
+	if got != want {
+		t.Fatalf("RepeatString(\"哈哈哈哈哈哈\", 2) = %q; want %q", got, want)
+	}
+}
